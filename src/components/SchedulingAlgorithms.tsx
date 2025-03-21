@@ -63,7 +63,9 @@ const SchedulingAlgorithms: React.FC<SchedulingAlgorithmsProps> = ({
             )}>
               {getIconComponent(algorithm.icon)}
             </div>
-            <span className="text-xs font-medium text-center">{algorithm.name}</span>
+            <span className="text-xs font-medium text-center line-clamp-2 min-h-[2.5rem] w-full">
+              {algorithm.name}
+            </span>
           </Button>
         ))}
       </div>
