@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Task, SchedulingAlgorithm, algorithms } from '@/utils/schedulingAlgorithms';
 import TaskInput from '@/components/TaskInput';
@@ -61,24 +60,33 @@ const Index = () => {
     const incompleteTasks = tasks.filter(task => !task.completed);
     const completedTasks = tasks.filter(task => task.completed);
     
-    const sortedIncompleteTasks = algorithm.algorithm(incompleteTasks);
-    
-    const sortedTasks = [...sortedIncompleteTasks, ...completedTasks];
-    
-    setDisplayedTasks(sortedTasks);
-    setSelectedAlgorithm(algorithm);
-    
-    toast.success(`Sorted using ${algorithm.name}`);
-    
     setTimeout(() => {
-      setIsReordering(false);
-    }, 500);
+      const sortedIncompleteTasks = algorithm.algorithm(incompleteTasks);
+      const sortedTasks = [...sortedIncompleteTasks, ...completedTasks];
+      
+      setDisplayedTasks(sortedTasks);
+      setSelectedAlgorithm(algorithm);
+      
+      toast.success(`Sorted using ${algorithm.name}`);
+      
+      setTimeout(() => {
+        setIsReordering(false);
+      }, 1200);
+    }, 300);
   };
   
   const resetSorting = () => {
-    setDisplayedTasks([...tasks]);
-    setSelectedAlgorithm(null);
-    toast.info('Sorting reset to default order');
+    setIsReordering(true);
+    
+    setTimeout(() => {
+      setDisplayedTasks([...tasks]);
+      setSelectedAlgorithm(null);
+      toast.info('Sorting reset to default order');
+      
+      setTimeout(() => {
+        setIsReordering(false);
+      }, 1000);
+    }, 200);
   };
 
   const getMatrixChar = () => {

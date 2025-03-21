@@ -40,14 +40,16 @@ const TaskItem = ({ task, index, onTaskComplete, isReordering }: TaskItemProps) 
     "Critical"
   ];
 
-  const animationDelay = isReordering ? 0 : index * 50 + 'ms';
+  // Calculate animation delay based on index and whether reordering
+  const animationDelay = isReordering ? `${index * 150}ms` : `${index * 100}ms`;
 
   return (
     <div 
       className={cn(
-        "glass-card rounded-xl p-4 mb-3 transition-all duration-300",
+        "glass-card rounded-xl p-4 mb-3 transition-all duration-500",
         "group hover:shadow-lg hover:shadow-primary/5",
         "animate-fade-in",
+        isReordering && "scale-[0.98] hover:scale-100",
         task.completed ? "opacity-60" : "opacity-100",
       )}
       style={{ animationDelay }}

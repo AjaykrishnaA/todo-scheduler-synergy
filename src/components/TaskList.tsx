@@ -58,8 +58,8 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onTaskComplete, isReordering
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, height: 0, marginBottom: 0 }}
                   transition={{ 
-                    duration: 0.3,
-                    delay: isReordering ? index * 0.05 : 0
+                    duration: 0.5,
+                    delay: isReordering ? index * 0.1 : 0
                   }}
                 >
                   <TaskItem 

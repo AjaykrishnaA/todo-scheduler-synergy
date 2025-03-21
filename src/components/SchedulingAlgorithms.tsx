@@ -40,23 +40,25 @@ const SchedulingAlgorithms: React.FC<SchedulingAlgorithmsProps> = ({
       <h2 className="text-lg font-medium mb-3 text-center">Choose a Scheduling Strategy</h2>
       
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-        {algorithms.map((algorithm) => (
+        {algorithms.map((algorithm, index) => (
           <Button
             key={algorithm.id}
             variant={selectedAlgorithmId === algorithm.id ? "default" : "outline"}
             size="sm"
             className={cn(
-              "h-auto py-3 px-3 flex flex-col items-center gap-2 transition-all duration-300",
+              "h-auto py-3 px-3 flex flex-col items-center gap-2 transition-all duration-500",
               selectedAlgorithmId === algorithm.id 
-                ? "border-primary/50 shadow-md shadow-primary/20" 
-                : "border-border hover:border-primary/20",
-              taskCount === 0 && "opacity-50 cursor-not-allowed"
+                ? "border-primary/50 shadow-md shadow-primary/20 scale-105" 
+                : "border-border hover:border-primary/20 hover:scale-102",
+              taskCount === 0 && "opacity-50 cursor-not-allowed",
+              "animate-fade-in"
             )}
+            style={{ animationDelay: `${index * 100}ms` }}
             onClick={() => taskCount > 0 && onSelectAlgorithm(algorithm)}
             disabled={taskCount === 0}
           >
             <div className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center transition-all",
+              "w-8 h-8 rounded-full flex items-center justify-center transition-all duration-500",
               selectedAlgorithmId === algorithm.id 
                 ? "bg-primary text-primary-foreground" 
                 : "bg-secondary text-secondary-foreground"
