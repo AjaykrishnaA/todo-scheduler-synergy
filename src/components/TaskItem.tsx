@@ -4,7 +4,7 @@ import { Task } from '@/utils/schedulingAlgorithms';
 import { cn } from '@/lib/utils';
 import { Checkbox } from '@/components/ui/checkbox';
 import { format } from 'date-fns';
-import { CheckCircle2, Circle, Clock, Star } from 'lucide-react';
+import { CheckCircle2, Circle, Clock, Code, Star } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
 interface TaskItemProps {
@@ -46,7 +46,7 @@ const TaskItem = ({ task, index, onTaskComplete, isReordering }: TaskItemProps) 
     <div 
       className={cn(
         "glass-card rounded-xl p-4 mb-3 transition-all duration-300",
-        "group hover:shadow-lg border border-border/50",
+        "group hover:shadow-lg hover:shadow-primary/5",
         "animate-fade-in",
         task.completed ? "opacity-60" : "opacity-100",
       )}
@@ -58,7 +58,7 @@ const TaskItem = ({ task, index, onTaskComplete, isReordering }: TaskItemProps) 
             checked={task.completed}
             onCheckedChange={handleCheckboxChange}
             className={cn(
-              "h-5 w-5 rounded-full transition-all duration-300",
+              "h-5 w-5 rounded transition-all duration-300",
               task.completed ? "bg-primary border-primary" : "border-muted-foreground"
             )}
           />
@@ -71,7 +71,7 @@ const TaskItem = ({ task, index, onTaskComplete, isReordering }: TaskItemProps) 
             </Badge>
             
             <Badge variant="outline" className="bg-secondary text-secondary-foreground">
-              {task.duration} min
+              <Code className="mr-1 h-3 w-3" /> {task.duration} min
             </Badge>
             
             <Badge variant="outline" className="bg-secondary/80 text-secondary-foreground flex items-center">
@@ -89,7 +89,7 @@ const TaskItem = ({ task, index, onTaskComplete, isReordering }: TaskItemProps) 
           
           {task.description && (
             <p className={cn(
-              "text-sm text-pretty transition-all duration-200",
+              "text-sm text-pretty transition-all duration-200 font-mono",
               task.completed ? "text-muted-foreground/70" : "text-muted-foreground"
             )}>
               {task.description}

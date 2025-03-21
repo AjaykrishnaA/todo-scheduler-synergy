@@ -48,7 +48,7 @@ const SchedulingAlgorithms: React.FC<SchedulingAlgorithmsProps> = ({
             className={cn(
               "h-auto py-3 px-3 flex flex-col items-center gap-2 transition-all duration-300",
               selectedAlgorithmId === algorithm.id 
-                ? "border-primary/30 shadow-md" 
+                ? "border-primary/50 shadow-md shadow-primary/20" 
                 : "border-border hover:border-primary/20",
               taskCount === 0 && "opacity-50 cursor-not-allowed"
             )}

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Task, SchedulingAlgorithm, algorithms } from '@/utils/schedulingAlgorithms';
 import TaskInput from '@/components/TaskInput';
@@ -5,7 +6,7 @@ import TaskList from '@/components/TaskList';
 import SchedulingAlgorithms from '@/components/SchedulingAlgorithms';
 import AlgorithmInfo from '@/components/AlgorithmInfo';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, ClipboardList, InfoIcon } from 'lucide-react';
+import { ArrowDown, ClipboardList, Code, InfoIcon, Terminal } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
@@ -79,33 +80,48 @@ const Index = () => {
     setSelectedAlgorithm(null);
     toast.info('Sorting reset to default order');
   };
+
+  const getMatrixChar = () => {
+    const chars = "01";
+    return chars.charAt(Math.floor(Math.random() * chars.length));
+  };
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-6 md:py-12 max-w-4xl">
         <header className="text-center mb-12">
           <Badge 
             variant="outline" 
-            className="mb-4 animate-fade-in bg-background border-muted px-3 py-1"
+            className="mb-4 animate-fade-in bg-secondary/50 border-primary/30 px-3 py-1"
           >
-            <ClipboardList className="h-3 w-3 mr-1" /> Task Management Reimagined
+            <Terminal className="h-3 w-3 mr-1" /> Task Optimization System
           </Badge>
           
           <h1 className="text-4xl md:text-5xl font-bold mb-4 tracking-tight animate-slide-down">
-            whatToDoNow
+            <span className="text-primary">what</span>To<span className="text-primary">Do</span>Now
           </h1>
           
+          <div className="flex justify-center mb-3">
+            <div className="text-xs font-mono text-muted-foreground opacity-50">
+              {Array.from({ length: 18 }).map((_, i) => (
+                <span key={i} className="inline-block animate-pulse-subtle" style={{ animationDelay: `${i * 0.1}s` }}>
+                  {getMatrixChar()}
+                </span>
+              ))}
+            </div>
+          </div>
+          
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-fade-in">
-            Optimize your productivity with scheduling algorithms that help you decide which tasks to tackle first.
+            Optimize your productivity with <span className="text-primary">O(n log n)</span> scheduling algorithms
           </p>
         </header>
         
         <div className="space-y-8 mb-16">
-          <div className="animate-fade-in" style={{ animationDelay: '100ms' }}>
+          <div className="animate-fade-in glass-card p-6 rounded-lg border-t border-primary/30" style={{ animationDelay: '100ms' }}>
             <TaskInput onAddTask={handleAddTask} />
           </div>
           
-          <div className="animate-fade-in" style={{ animationDelay: '200ms' }}>
+          <div className="animate-fade-in glass-card p-6 rounded-lg" style={{ animationDelay: '200ms' }}>
             <SchedulingAlgorithms 
               onSelectAlgorithm={handleSelectAlgorithm} 
               selectedAlgorithmId={selectedAlgorithm?.id || null}
@@ -117,7 +133,7 @@ const Index = () => {
             <div className="flex justify-between items-center px-1 animate-fade-in">
               <div>
                 <Badge variant="outline" className="bg-primary/10 text-primary border-primary/20">
-                  {selectedAlgorithm.name}
+                  <Code className="h-3 w-3 mr-1" /> {selectedAlgorithm.name}
                 </Badge>
               </div>
               <Button 
@@ -142,17 +158,18 @@ const Index = () => {
         
         {tasks.length > 0 && (
           <div className="flex justify-center my-16 animate-fade-in animate-pulse-subtle">
-            <a href="#scheduling-info" className="flex flex-col items-center text-muted-foreground hover:text-foreground transition-colors">
-              <span className="text-sm mb-2">Learn about scheduling algorithms</span>
-              <ArrowDown className="h-5 w-5 animate-float" />
+            <a href="#scheduling-info" className="flex flex-col items-center text-muted-foreground hover:text-primary transition-colors">
+              <span className="text-sm mb-2 font-mono">algorithm.details()</span>
+              <ArrowDown className="h-5 w-5 animate-float text-primary" />
             </a>
           </div>
         )}
         
         <AlgorithmInfo />
         
-        <footer className="border-t border-border/50 mt-20 pt-8 pb-12 text-center text-sm text-muted-foreground">
-          <p>whatToDoNow - Optimize your productivity with algorithm-powered scheduling</p>
+        <footer className="border-t border-border/50 mt-20 pt-8 pb-12 text-center text-sm text-muted-foreground font-mono">
+          <p className="mb-2">whatToDoNow v1.0.0 | <span className="text-primary">Runtime Complexity: O(n log n)</span></p>
+          <p className="text-xs opacity-60">(c) {new Date().getFullYear()} - Optimizing productivity one algorithm at a time</p>
         </footer>
       </div>
     </div>
